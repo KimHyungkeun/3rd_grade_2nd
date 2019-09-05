@@ -79,16 +79,16 @@ HelloWorld:
 	pusha
 	mov ax,0xb800
 	mov es,ax
-	mov ah, 0x07
-	mov di, 0
+	mov ah, 0x07 ;문자색상이 흰색
+	mov di, 0 ; 비디오 오프셋
 	.loop:
-		mov al, [ds:si]
-		cmp al, 0
-		je .endFunc
+		mov al, [ds:si] ; 한 문자를 불러온다
+		cmp al, 0 ; 널문자인지 비교
+		je .endFunc ; 널문자면 함수종료
 
-		mov [es:di], ax
-		add si,1
-		add di,2
+		mov [es:di], ax ;비디오 메모리에 출력
+		add si,1 ; 다음 문자 추가
+		add di,2 ; 다음 비디오 메모리 주소
 		jmp .loop
 .endFunc:
 	popa
