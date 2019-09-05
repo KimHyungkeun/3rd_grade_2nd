@@ -32,7 +32,7 @@
 00000000000i[      ]   SB16 support: no
 00000000000i[      ]   USB support: no
 00000000000i[      ]   VGA extension support: vbe
-00000000000i[MEM0  ] allocated memory at 0xaf081008. after alignment, vector=0xaf082000
+00000000000i[MEM0  ] allocated memory at 0xaf01f008. after alignment, vector=0xaf020000
 00000000000i[MEM0  ] 128.00MB
 00000000000i[MEM0  ] mem block size = 0x00100000, blocks=128
 00000000000i[MEM0  ] rom at 0xfffe0000/131072 ('/usr/local/share/bochs/BIOS-bochs-latest')
@@ -42,7 +42,7 @@
 00000000000i[DEV   ] PIIX3 PCI-to-ISA bridge present at device 1, function 0
 00000000000i[PLUGIN] init_dev of 'cmos' plugin device by virtual method
 00000000000i[CMOS  ] Using utc time for initial clock
-00000000000i[CMOS  ] Setting initial clock to: Wed Sep  4 14:41:39 2019 (time0=1567575699)
+00000000000i[CMOS  ] Setting initial clock to: Thu Sep  5 02:12:07 2019 (time0=1567617127)
 00000000000i[PLUGIN] init_dev of 'dma' plugin device by virtual method
 00000000000i[DMA   ] channel 4 used by cascade
 00000000000i[PLUGIN] init_dev of 'pic' plugin device by virtual method
@@ -172,29 +172,29 @@
 00001522985i[BXVGA ] VBE known Display Interface b0c5
 00001525910i[VBIOS ] VBE Bios $Id: vbe.c,v 1.65 2014/07/08 18:02:25 vruppert Exp $
 00001870477i[BIOS  ] ata0-0: PCHS=20/16/63 translation=none LCHS=20/16/63
-00003232866i[XGUI  ] charmap update. Font Height is 16
+00004380166i[XGUI  ] charmap update. Font Height is 16
 00005747283i[BIOS  ] IDE time out
-13138575781i[BIOS  ] Booting from 0000:7c00
-19821720000i[      ] cpu loop quit, shutting down simulator
-19821720000i[CPU0  ] CPU is in real mode (active)
-19821720000i[CPU0  ] CS.mode = 16 bit
-19821720000i[CPU0  ] SS.mode = 16 bit
-19821720000i[CPU0  ] EFER   = 0x00000000
-19821720000i[CPU0  ] | EAX=00000764  EBX=00000fa0  ECX=00090000  EDX=00000080
-19821720000i[CPU0  ] | ESP=0000ffd6  EBP=00000000  ESI=000e0000  EDI=0000ffac
-19821720000i[CPU0  ] | IOPL=0 id vip vif ac vm rf nt of df if tf sf zf AF PF cf
-19821720000i[CPU0  ] | SEG sltr(index|ti|rpl)     base    limit G D
-19821720000i[CPU0  ] |  CS:0000( 0004| 0|  0) 00000000 0000ffff 0 0
-19821720000i[CPU0  ] |  DS:0000( 0005| 0|  0) 00000000 0000ffff 0 0
-19821720000i[CPU0  ] |  SS:0000( 0005| 0|  0) 00000000 0000ffff 0 0
-19821720000i[CPU0  ] |  ES:b800( 0005| 0|  0) 000b8000 0000ffff 0 0
-19821720000i[CPU0  ] |  FS:0000( 0005| 0|  0) 00000000 0000ffff 0 0
-19821720000i[CPU0  ] |  GS:0000( 0005| 0|  0) 00000000 0000ffff 0 0
-19821720000i[CPU0  ] | EIP=00007ca8 (00007ca8)
-19821720000i[CPU0  ] | CR0=0x60000010 CR2=0x00000000
-19821720000i[CPU0  ] | CR3=0x00000000 CR4=0x00000000
-19821720000i[CPU0  ] 0x00007ca8>> jmp .-2 (0x00007ca8) : EBFE
-19821720000i[CMOS  ] Last time is 1567576690 (Wed Sep  4 14:58:10 2019)
-19821720000i[XGUI  ] Exit
-19821720000i[      ] restoring default signal behavior
-19821720000i[SIM   ] quit_sim called with exit code 1
+13558501341i[BIOS  ] Booting from 0000:7c00
+13875540000i[      ] cpu loop quit, shutting down simulator
+13875540000i[CPU0  ] CPU is in real mode (active)
+13875540000i[CPU0  ] CS.mode = 16 bit
+13875540000i[CPU0  ] SS.mode = 16 bit
+13875540000i[CPU0  ] EFER   = 0x00000000
+13875540000i[CPU0  ] | EAX=00000000  EBX=00000fa0  ECX=00090000  EDX=00000080
+13875540000i[CPU0  ] | ESP=0000ffd6  EBP=00000000  ESI=000e7c25  EDI=00000000
+13875540000i[CPU0  ] | IOPL=0 id vip vif ac vm rf nt of df if tf sf ZF af PF cf
+13875540000i[CPU0  ] | SEG sltr(index|ti|rpl)     base    limit G D
+13875540000i[CPU0  ] |  CS:0000( 0004| 0|  0) 00000000 0000ffff 0 0
+13875540000i[CPU0  ] |  DS:0000( 0005| 0|  0) 00000000 0000ffff 0 0
+13875540000i[CPU0  ] |  SS:0000( 0005| 0|  0) 00000000 0000ffff 0 0
+13875540000i[CPU0  ] |  ES:b800( 0005| 0|  0) 000b8000 0000ffff 0 0
+13875540000i[CPU0  ] |  FS:0000( 0005| 0|  0) 00000000 0000ffff 0 0
+13875540000i[CPU0  ] |  GS:0000( 0005| 0|  0) 00000000 0000ffff 0 0
+13875540000i[CPU0  ] | EIP=00007c23 (00007c23)
+13875540000i[CPU0  ] | CR0=0x60000010 CR2=0x00000000
+13875540000i[CPU0  ] | CR3=0x00000000 CR4=0x00000000
+13875540000i[CPU0  ] 0x00007c23>> jmp .-2 (0x00007c23) : EBFE
+13875540000i[CMOS  ] Last time is 1567617820 (Thu Sep  5 02:23:40 2019)
+13875540000i[XGUI  ] Exit
+13875540000i[      ] restoring default signal behavior
+13875540000i[SIM   ] quit_sim called with exit code 1
