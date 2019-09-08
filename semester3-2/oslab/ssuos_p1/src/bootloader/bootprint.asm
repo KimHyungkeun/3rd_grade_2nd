@@ -15,9 +15,7 @@ mov		[es:bx], ax
 add		bx, 1
 loop 	CLS
 
-
-
-mov ah, 0x07 ;글자색 흰색
+mov ah, 0x07
 mov al, 'H'
 mov [es:0000],ax ; H 출력
 mov al, 'e'
@@ -68,23 +66,3 @@ mov al, 'd'
 mov [es:0046],ax ; d 출력
 
 jmp $
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
