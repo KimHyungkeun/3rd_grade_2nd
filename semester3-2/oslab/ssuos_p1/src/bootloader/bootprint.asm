@@ -15,54 +15,18 @@ mov		[es:bx], ax
 add		bx, 1
 loop 	CLS
 
-mov ah, 0x07
-mov al, 'H'
-mov [es:0000],ax ; H 출력
-mov al, 'e'
-mov [es:0002],ax ; e 출력
-mov al, 'l'
-mov [es:0004],ax ; l 출력
-mov al, 'l'
-mov [es:0006],ax ; l 출력
-mov al, 'o'
-mov [es:0008],ax ; o 출력
-mov al, ','
-mov [es:0010],ax ; , 출력
-mov al, ' '
-mov [es:0012],ax ; 공백 출력
-mov al, 'H'
-mov [es:0014],ax ; H 출력
-mov al, 'y'
-mov [es:0016],ax ; y 출력
-mov al, 'u'
-mov [es:0018],ax ; u 출력
-mov al, 'n'
-mov [es:0020],ax ; n 출력
-mov al, 'g'
-mov [es:0022],ax ; g 출력
-mov al, 'k'
-mov [es:0024],ax ; k 출력
-mov al, 'e'
-mov [es:0026],ax ; e 출력
-mov al, 'u'
-mov [es:0028],ax ; u 출력
-mov al, 'n'
-mov [es:0030],ax ; n 출력
-mov al, 39
-mov [es:0032],ax ; ' 출력
-mov al, 's'
-mov [es:0034],ax ; s 출력
-mov al, ' '
-mov [es:0036],ax ; 공백 출력
-mov al, 'W'
-mov [es:0038],ax ; W 출력
-mov al, 'o'
-mov [es:0040],ax ; o 출력
-mov al, 'r'
-mov [es:0042],ax ; r 출력
-mov al, 'l'
-mov [es:0044],ax ; l 출력
-mov al, 'd'
-mov [es:0046],ax ; d 출력
 
-jmp $
+mov ax,ds
+mov es,ax
+
+lea bp,[msg]
+mov ah,0x13 ;문자열 출력 함수
+mov cx,0x18 ;문자열 길이
+mov al,0x00 ;쓰기모드
+mov bh,0x00 ;페이지번호
+mov bl,0x07 ;글자속성
+mov dh, 0x00 ;x좌표 0
+mov dl, 0x00 ;y좌표 0
+int 0x10 ;문자열 출력
+
+msg db "Hello, Hyungkeun's World", 0
