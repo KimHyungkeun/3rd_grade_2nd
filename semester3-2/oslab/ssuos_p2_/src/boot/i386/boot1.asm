@@ -41,23 +41,23 @@ Initialize_PIC:
 		;out		0x21, al
 		out		0xa1, al
 
-Initialize_Serial_port:
+Initialize_Serial_port: ;시리얼 포트 초기화
 		xor		ax, ax
 		xor		dx, dx
 		mov		al, 0xe3
 		int		0x14
 
-READY_TO_PRINT:
+READY_TO_PRINT: ;
 		xor		si, si
 		xor		bh, bh
-PRINT_TO_SERIAL:
+PRINT_TO_SERIAL: ;
 		mov		al, [msgRMode+si]
 		mov		ah, 0x01
 		int		0x14
 		add		si, 1
 		cmp		al, 0
 		jne		PRINT_TO_SERIAL
-PRINT_NEW_LINE:
+PRINT_NEW_LINE: ;
 		mov		al, 0x0a
 		mov		ah, 0x01
 		int		0x14
@@ -96,12 +96,12 @@ PROTECTED:
 		jmp		CODEDESCRIPTOR:ENTRY32
 
 SETUP_GDT:
-		lgdt	[GDT_DESC]
+		lgdt	[GDT_DESC] ;GDT를 등록
 		ret
 
 [BITS 32]  
 
-ENTRY32:
+ENTRY32: ;세그먼트 레지스터 초기화
 		mov		ax, 0x10
 		mov		ds, ax
 		mov		es, ax
@@ -194,31 +194,31 @@ CARRIAGE_RETURN:
 		ret
 
 GDT_DESC:
-        dw GDT_END - GDT - 1    
-        dd GDT                 
+        dw GDT_END - GDT - 1    ; GDT의 limit
+        dd GDT                 ; GDT의 베이스 주소(address)
 GDT:
-		NULLDESCRIPTOR equ 0x00
+		NULLDESCRIPTOR equ 0x00 ;NULL 디스크립터
 			dw 0 
 			dw 0 
 			db 0 
 			db 0 
 			db 0 
 			db 0
-		CODEDESCRIPTOR  equ 0x08
+		CODEDESCRIPTOR  equ 0x08 ;코드 디스크립터
 			dw 0xffff             
 			dw 0x0000              
 			db 0x00                
 			db 0x9a                    
 			db 0xcf                
 			db 0x00                
-		DATADESCRIPTOR  equ 0x10
+		DATADESCRIPTOR  equ 0x10 ;데이터 디스크립터
 			dw 0xffff              
 			dw 0x0000              
 			db 0x00                
 			db 0x92                
 			db 0xcf                
 			db 0x00                
-		VIDEODESCRIPTOR equ 0x18
+		VIDEODESCRIPTOR equ 0x18 ;비디오 디스크립터
 			dw 0xffff              
 			dw 0x8000              
 			db 0x0b                
@@ -226,7 +226,7 @@ GDT:
 			db 0x40                    
 			;db 0xcf                    
 			db 0x00                 
-		IDTDESCRIPTOR	equ 0x20
+		IDTDESCRIPTOR	equ 0x20 ;IDT 디스크립터
 			dw 0xffff
 			dw 0x0000
 			db 0x02
@@ -263,8 +263,8 @@ ISR_IGNORE:
 
 
 
-msgRMode db "Real Mode", 0
-msgPMode db "Protected Mode", 0
+msgRMode db "Real Mode", 0 ; 리얼모드 문자열 출력
+msgPMode db "Protected Mode", 0 ; 보호모드 문자열 출력
 
  
 times 	2048-($-$$) db 0x00
