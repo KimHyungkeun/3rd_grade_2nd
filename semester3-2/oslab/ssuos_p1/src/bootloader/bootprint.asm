@@ -19,7 +19,6 @@ loop 	CLS
 mov ax,ds
 mov es,ax
 
-lea bp,[msg]
 mov cx,0x18 ;문자열 길이
 mov al,0x00 ;쓰기모드
 mov bh,0x00 ;페이지번호
@@ -27,6 +26,7 @@ mov bl,0x07 ;글자속성
 mov dh, 0x00 ;x좌표 0
 mov dl, 0x00 ;y좌표 0
 mov ah,0x13 ;문자열 출력 함수
+lea bp,[msg]
 int 0x10 ;문자열 출력
 
 msg db "Hello, Hyungkeun's World", 0 ;출력할 문자열
