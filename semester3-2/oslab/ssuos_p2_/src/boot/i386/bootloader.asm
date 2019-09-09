@@ -26,9 +26,7 @@ push ax ;현재의 비디오상태를 저장
 mov dh,0x00 ; [0]초기 상태 저장
 push dx ;데이터들을 저장
 
-
-
-USER_SELECT: ;사용자는 이곳에서 커널선택 화면을 볼수있다
+MAIN_PAGE: ;사용자는 이곳에서 커널선택 화면을 볼수있다
 mov ah,0x00 
 mov al,0x10 
 int 0x10 ;비디오 상태 설정
@@ -53,14 +51,43 @@ mov dl,0x00 ;y좌표 0
 int 0x10 ; 문자열 출력
 pop dx ;데이터 저장
 mov cx,0x03 ; 문자열 갯수
-;mov dl,0x00
+mov dl,0x00
+lea bp,[select] ;[0]위치  
+int 0x10 ; [0]위치 출력
+jmp MOVE_SELECT ;사용자 출력위치로
+
+
+
+USER_SELECT: ; [0]가 유저가 선택하는 방향으로 이동하게 되는 화면
+mov ah,0x00 
+mov al,0x10 
+int 0x10 ;비디오 상태 설정
+mov ax,ds
+mov es,ax
+mov cx,0x0b ;문자열 길이
+mov al,0x00 ;쓰기모드
+mov bh,0x00 ;페이지번호
+mov bl,0x09 ;글자속성
+mov ah,0x13
+lea bp,[ssuos_1] ;ssuos_1 문자열 
+mov dh,0x00 ;x좌표 0
+mov dl,0x00 ;y좌표 0
+int 0x10 ; 문자열 출력
+lea bp,[ssuos_2] ;ssuos_2 문자열
+mov dh,0x00 ;x좌표 0
+mov dl,0x0c ;y좌표 13
+int 0x10 ; 문자열 출력
+lea bp,[ssuos_3] ;ssuos_3 문자열
+mov dh,0x01 ;x좌표 1
+mov dl,0x00 ;y좌표 0
+int 0x10 ; 문자열 출력
+pop dx ;데이터 저장
+mov cx,0x03 ; 문자열 갯수
 lea bp,[select] ;[0]위치  
 int 0x10 ; [0]위치 출력
 
 
-
-
-MOVE_SELECT: ;
+MOVE_SELECT: 
 mov ah,0x10 
 int 0x16 ;키보드 입력 대기
 cmp ah,0x48 ;위 방향키가 입력
