@@ -167,14 +167,14 @@ je KERNEL_LOAD ; 커널1로 이동
 
 SELECT_SSUOS2: ;커널2 선택
 cmp dh,0 ;y축이 0이면
-je KERNEL_2 ; 커널2로 이동
+je KERNEL2_LOAD ; 커널2로 이동
 
 SELECT_SSUOS3: ;커널3 선택
 cmp dl,0 ;x축이 0이면
-je KERNEL_3 ; 커널3로 이동
+je KERNEL3_LOAD ; 커널3로 이동
 
 
-KERNEL_2: ;불러올 커널에 따른 CHS 값 설정(커널2)
+KERNEL2_LOAD: ;커널2
 mov	ax, 0x1000
 mov es, ax
 mov bx, 0x0
@@ -187,12 +187,12 @@ mov dh,0x0e ;헤더 넘버
 mov dl,0x80 ;첫번째하드
 
 int 0x13 ;바이오스 부팅
-jc KERNEL_2 ;커널2 작동
+jc KERNEL2_LOAD ;커널2 작동
 
 jmp 0x0900:0x0000 ;boot1.asm작동
 
 
-KERNEL_3: ;불러올 커널에 따른 CHS 값 설정(커널3)
+KERNEL3_LOAD: ;커널3
 mov	ax, 0x1000
 mov es, ax
 mov bx, 0x0
@@ -205,7 +205,7 @@ mov dh,0x0e;헤더 넘버
 mov dl,0x80;첫번째하드
 
 int 0x13 ;바이오스 부팅
-jc KERNEL_3 ;커널3 작동
+jc KERNEL3_LOAD ;커널3 작동
 
 jmp 0x0900:0x0000 ;boot1.asm작동
 
