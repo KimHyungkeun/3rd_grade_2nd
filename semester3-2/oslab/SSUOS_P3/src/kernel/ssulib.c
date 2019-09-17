@@ -179,12 +179,12 @@ int generic_write(int fd, void *buf, size_t len)
 		return -1;
 	}
 
-	if((cursor->flags & O_RDWR) && (cursor->flags & O_APPEND)) {	
+	if( cursor->flags & O_APPEND ) {	
 		*pos = cursor->inode->sn_size; //플래그에 O_RDWR와 O_APPEND가 존재하면 offset위치를 파일의 끝으로 보낸다. 
 	}
 
 
-	if((cursor->flags & O_RDWR) && (cursor->flags & O_TRUNC)) {
+	if( cursor->flags & O_TRUNC ) {
 		*pos = 0; //플래그에 O_RDWR와 O_TRUNC가 존재하면 offset위치를 0으로 만든다. 
 	}
 
