@@ -121,6 +121,8 @@ jmp USER_SELECT ; USER_SELECT로 이동하여 화면을 [0] 위치에 맞게 함
 RIGHT: ;오른쪽 방향키 입력
 cmp dl,0x0c ;x축이 13이면
 je STOP_RIGHT ; STOP_RIGHT 레이블로 이동
+cmp dh,1 ;y축이 1이면
+je STOP_RIGHT ; STOP_RIGHT 레이블로 이동
 add dl,0x0c ;13만큼 움직임
 push dx ; 데이터 저장
 jmp USER_SELECT ; USER_SELECT로 이동하여 화면을 [0] 위치에 맞게 함
