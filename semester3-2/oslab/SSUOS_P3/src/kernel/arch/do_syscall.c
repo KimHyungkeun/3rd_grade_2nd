@@ -95,14 +95,14 @@ int do_fcntl(int fd, int cmd, long arg)
 
 	if (cmd & F_DUPFD){
 		
-		for(new_fd = arg; new_fd <= NR_FILEDES; new_fd++) { //할당가능한 파일디스크립터 검색
+		for(new_fd = arg; new_fd < NR_FILEDES; new_fd++) { //할당가능한 파일디스크립터 검색
 			if(file_cursor[new_fd] == NULL){ //만약 비어있는 파일디스크립터가 존재하면
 				file_cursor[new_fd] = file_cursor[fd]; //현재의 디스크립터를 새로운 디스크립터로 복사
 				break;
 			}
 		}
 		
-		if (new_fd > NR_FILEDES) //만약 해당 파일디스크립터가 한도갯수를 초과한 경우
+		if (new_fd >= NR_FILEDES) //만약 해당 파일디스크립터가 한도갯수를 초과한 경우
 			return -1; //에러처리한다
 		
 		return new_fd; //새로 할당된 파일디스크립터를 리턴시킨다.
@@ -113,7 +113,7 @@ int do_fcntl(int fd, int cmd, long arg)
 	}
 	else if(cmd & F_SETFL){ //cmd가 F_SETFL
 		
-		if ((arg & O_APPEND) != O_APPEND) { //만약 플래그에 O_APPEND가 들어있지 아니하면
+		if ( (arg & O_APPEND) != O_APPEND) { //만약 플래그에 O_APPEND가 들어있지 아니하면
 			return flag; //에러로 처리
 		}
 
