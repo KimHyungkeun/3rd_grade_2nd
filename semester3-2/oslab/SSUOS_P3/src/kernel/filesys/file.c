@@ -26,7 +26,7 @@ int file_open(struct inode *inode, int flags, int mode)
 
 
 	if(flags & O_APPEND){
-		file_cursor[fd]->pos = file_cursor[fd]->inode->sn_size; //O_APPEND 플래그가 존재하면 offset 위치를 파일의 끝으로 보낸다.
+		; //O_APPEND가 발견되면 offset은 입력된 문자열 길이만큼 이동된 후 write가 된다.
 	}
 
 	else if(flags & O_TRUNC){
