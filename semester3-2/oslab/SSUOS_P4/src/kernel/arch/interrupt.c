@@ -181,16 +181,16 @@ void timer_handler(struct intr_frame *iframe)
 {
 	ticks++;
 
-	if (cur_process->state == PROC_RUN) {
-	cur_process->time_slice++;	
-	cur_process->time_used++;	
+	if (cur_process -> pid != 0 && cur_process->state == PROC_RUN) { //현재 프로세스가 0이 아니고, PROC_RUN상태이면
+	cur_process->time_slice++;	//스케쥴링 이후 재 스케쥴링 까지의 시간 증가
+	cur_process->time_used++;	//프로세스가 생성된 이후 CPU 총 사용시간 증가
 	}
 		
-	if(cur_process -> pid != 0 && cur_process -> time_slice % 30 == 0) 
-		recalculate_priority();
+	if(cur_process -> pid != 0 && cur_process -> time_slice % 30 == 0) //현재 프로세스가 0이 아니고, time_slice가 30tick이 될때마다
+		recalculate_priority(); //priority를 재계산한다.
 
 
-	if(cur_process->time_slice >= TIMER_MAX)
+	if(cur_process->time_slice >= TIMER_MAX) 
 		do_sched_on_return();
 
 #ifdef SCREEN_SCROLL

@@ -76,14 +76,14 @@ void init_proc()
 
 	/* You should modify this function... */
 	for (i = 0; i < RQ_NQS; i++) {
-  		list_init(&runq[i]);
+  		list_init(&runq[i]); //runq배열을 새로 초기화한다.
  	}
 
 	list_push_back(&plist, &cur_process->elem_all);
 	
 	//proc_getpos(cur_process->priority, &i);
 	for (i = 0; i < RQ_NQS; i++) {
-  		list_push_back(&runq[i], &cur_process->elem_stat);
+  		list_push_back(&runq[i], &cur_process->elem_stat); //runq배열의 각 리스트에 대해 프로세스들을 집어넣는다.
  	}
 	
  	
@@ -169,8 +169,8 @@ pid_t proc_create(proc_func func, struct proc_option *opt, void* aux)
 	/* You should modify this function... */
 	list_push_back(&plist, &p->elem_all);
 
-	proc_getpos(p->priority, &idx);
-	list_push_back(&runq[idx], &p->elem_stat);
+	proc_getpos(p->priority, &idx); //proc_getpos 함수를 통해 priority/4 값을 인덱스로 취한다
+	list_push_back(&runq[idx], &p->elem_stat); //runq의 해당인덱스로 가서 새 리스트(프로세스)를 넣는다.
  	
 
 	intr_set_level (old_level);
@@ -189,14 +189,14 @@ void recalculate_priority(void)
 
 	/* Your code goes here... */
 	
-	if (p -> pid == 0 || p-> priority > 99) 
-		cur_process->priority = 99;
+	if (p -> pid == 0 || p-> priority > 99)  //프로세스가 0번이거나, priority가 99를 넘는다면
+		cur_process->priority = 99; //해당 priority를 99로 설정한다
 	
 	else
-		cur_process->priority += (cur_process->time_slice / 10);
+		cur_process->priority += (cur_process->time_slice / 10); //그런경우가 아니면 명세서 식에 맞게 계산한다.
 	
-	proc_getpos(p->priority, &idx);
-	list_push_back(&runq[idx], &p->elem_stat);
+	proc_getpos(p->priority, &idx); //proc_getpos 함수를 통해 priority/4 값을 인덱스로 취한다
+	list_push_back(&runq[idx], &p->elem_stat); //runq의 해당인덱스로 가서 새 리스트(프로세스)를 넣는다.
 	
 	
 }
@@ -247,8 +247,8 @@ void proc_wake(void)
 		
 		list_remove(&p->elem_stat);
 
-		proc_getpos(p->priority, &idx);
-		list_push_back(&runq[idx], &p->elem_stat);
+		proc_getpos(p->priority, &idx); //proc_getpos 함수를 통해 priority/4 값을 인덱스로 취한다
+		list_push_back(&runq[idx], &p->elem_stat); //runq의 해당인덱스로 가서 새 리스트(프로세스)를 넣는다.
 
 		p->state = PROC_RUN;
 
@@ -260,7 +260,7 @@ void proc_sleep(unsigned ticks)
 	unsigned long cur_ticks = get_ticks();
 
 	/* You should modify this function... */
-	cur_process->time_sleep =  cur_ticks + ticks;
+	cur_process->time_sleep =  cur_ticks + ticks; //현재까지 경과된 cur_ticks에 사용자가 원하는 tick만큼을 더해서 sleep 시킨다.
 	cur_process->state = PROC_STOP;
 	cur_process->time_slice = 0;
 
@@ -284,8 +284,8 @@ void proc_unblock(struct process* proc)
 	int idx;
 	
 	/* You shoud modify this function... */
-	proc_getpos(proc->priority, &idx);
-	list_push_back(&runq[idx], &proc->elem_stat);
+	proc_getpos(proc->priority, &idx); //proc_getpos 함수를 통해 priority/4 값을 인덱스로 취한다
+	list_push_back(&runq[idx], &proc->elem_stat); //runq의 해당인덱스로 가서 새 리스트(프로세스)를 넣는다.
 	proc->state = PROC_RUN;
 }     
 
@@ -311,19 +311,17 @@ void kernel1_proc(void* aux)
 	while(1)
 	{
 		/* Your code goes here... */
-		if (cur_process->time_used >= 200 ) {
-			proc_end();
+		if (cur_process->time_used >= 200 ) { //CPU총합시간이 200tick을 넘어가면 
+			proc_end(); //프로세스 종료
 		
 		}
 
-		if (cur_process->time_used == 140 && passed == 0) {
+		if (cur_process->time_used == 140 && passed == 0) { //CPU총합시간이 140tick이면
 			//printk("Proc 1 I/O at 140\n");
 			passed=1;
-			proc_sleep(60);
+			proc_sleep(60);   // 60tick동안 sleep상태로 들어간다
 
 		}
-
-		//printk("Selected # = 1\n");
 
 	}
 }
@@ -334,19 +332,18 @@ void kernel2_proc(void* aux)
 	while(1)
 	{
 		/* Your code goes here... */
-		if (cur_process->time_used >= 120 ) {
-			proc_end();
+		if (cur_process->time_used >= 120 ) { //CPU총합시간이 120tick을 넘어가면 
+			proc_end(); //프로세스 종료
 		
 		}
 
-		if (cur_process->time_used == 100 && passed == 0) {
+		if (cur_process->time_used == 100 && passed == 0) { //CPU총합시간이 100tick이면 sleep상태로 들어간다
 			passed=1;
-			proc_sleep(60);
+			proc_sleep(60); // 60tick동안 sleep상태로 들어간다
 			
 			
 		}
 
-		//printk("Selected # = 2\n");
 		
 	}
 }
@@ -358,21 +355,21 @@ void kernel3_proc(void* aux)
 	while(1)
 	{
 		/* Your code goes here... */
-		if (cur_process->time_used >= 150 ) {
-			proc_end();
+		if (cur_process->time_used >= 150 ) { //CPU총합시간이 150tick 이상이면
+			proc_end(); //프로세스 종료
 		
 		}
 
-		if (cur_process->time_used == 50 && passed1 == 0) {
+		if (cur_process->time_used == 50 && passed1 == 0) { //CPU총합시간이 50tick이면
 			passed1=1;
-			proc_sleep(60);
+			proc_sleep(60); //60tick 동안 sleep
 			
 			
 		}
 
-		if (cur_process->time_used == 100 && passed2 == 0) {
+		if (cur_process->time_used == 100 && passed2 == 0) { //CPU총합시간이 100tick이면
 			passed2=1;
-			proc_sleep(60);
+			proc_sleep(60); //60tick 동안 sleep
 			
 		}
 
@@ -411,7 +408,7 @@ void idle(void* aux)
 void proc_getpos(int priority, int *idx) 
 {
 	/* Your code goes here... */
-	*idx = priority / 4;
+	*idx = priority / 4; //현 priority값에서 4를 나눈다. runq인덱스를 구하기 위함임.
 }
 
 void proc_print_data()
