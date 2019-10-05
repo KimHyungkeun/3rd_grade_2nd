@@ -53,7 +53,7 @@ void schedule(void)
 
 	struct list_elem *elem;
 	bool found = false;
-	int idx;
+
 	
 
 	/* You shoud modify this function.... */
