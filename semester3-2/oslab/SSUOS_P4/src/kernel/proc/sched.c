@@ -53,6 +53,7 @@ void schedule(void)
 
 	struct list_elem *elem;
 	bool found = false;
+	int idx;
 	
 
 	/* You shoud modify this function.... */
@@ -76,19 +77,34 @@ void schedule(void)
 		for (elem = list_begin(&plist); elem != list_end(&plist); elem = list_next(elem)) { 
 			p = list_entry(elem, struct process, elem_all); //프로세스 전체 배열인 plist에 대해 검사한다
 			if (p->pid != 0 && p->state == PROC_RUN) { //만약 프로세스가 0번이 아니고 run 상태면
-				if (found == false) { //found flag가 false로 설정
+				if (found == false)  //found flag가 false로 설정
 					found = true; //이를 true로 설정하고
-				} else {
+				else 
 					printk(", "); //이미 true이면 쉼표를 출력
-				}
-				printk("#= %d p= %d ", p->pid, p->priority); //pid, priority 출력
-				printk("c= %d u= %d", p->time_slice, p->time_used); //time_slice, time_used 출력
+				
+				printk("#= %d p= %d c= %d u= %d ", p->pid, p->priority, p->time_slice, p->time_used); //pid, priority,time_slice, time_used 출력
 			}
 		}
 
+		/*for (idx = 0 ; idx < RQ_NQS ; idx++) {
+			for (elem = list_begin(&runq[idx]); elem != list_end(&runq[idx]); elem = list_next(elem)) { 
+				p = list_entry(elem, struct process, elem_all); //프로세스 전체 배열인 plist에 대해 검사한다
+				if (p->pid != 0 && p->state == PROC_RUN) { //만약 프로세스가 0번이 아니고 run 상태면
+					if (found == false)  //found flag가 false로 설정
+						found = true; //이를 true로 설정하고
+					 
+					else 
+						printk(", "); //이미 true이면 쉼표를 출력
+					
+					printk("#= %d p= %d c= %d u= %d ", p->pid, p->priority, p->time_slice, p->time_used); //pid, priority,time_slice, time_used 출력
+				}
+			}
+			
+		}*/
+
 		printk("\n"); 
 		printk("Selected # = %d\n", next->pid); //선택된 다음 프로세스 번호를 출력
-		
+
 	}
 
 	cur_process->time_slice = 0;
