@@ -393,11 +393,11 @@ void idle(void* aux)
 {
 	struct proc_option opt1 = { .priority = 50 };
 	struct proc_option opt2 = { .priority = 50 };
-	//struct proc_option opt3 = { .priority = 30 };
+	struct proc_option opt3 = { .priority = 30 };
 
 	proc_create(kernel1_proc, &opt1, NULL);
 	proc_create(kernel2_proc, &opt2, NULL);
-	//proc_create(kernel3_proc, &opt3, NULL);
+	proc_create(kernel3_proc, &opt3, NULL);
 
 
 	while(1) {  
