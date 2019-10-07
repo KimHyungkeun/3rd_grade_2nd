@@ -62,12 +62,13 @@ void schedule(void)
 	intr_disable(); //인터럽트 비활성화
 	proc_wake(); //프로세스를 깨운다
 
-	next = get_next_proc(); //다른 프로세스들을 스케쥴링한다.
+	
 	
 	if (cur_process->state == PROC_STOP) //프로세스가 STOP상태면
 		printk("Proc %d I/O at %d\n", cur_process->pid, cur_process->time_used); //해당 프로세스에 대한 정보를 출력
 	
 	cur = cur_process; //현재 프로세스를 cur 변수에 넣음
+	next = get_next_proc(); //다른 프로세스들을 스케쥴링한다.
 	cur_process = next; //다음 프로세스를 현재의 프로세스로 설정
 
 	if (next->pid != 0) { //다음 프로세스가 0이 아닐 경우
