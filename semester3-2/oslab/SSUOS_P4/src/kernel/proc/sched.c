@@ -70,6 +70,7 @@ void schedule(void)
 	cur = cur_process; //현재 프로세스를 cur 변수에 넣음
 	next = get_next_proc(); //다른 프로세스들을 스케쥴링한다.
 	cur_process = next; //다음 프로세스를 현재의 프로세스로 설정
+	
 
 	if (next->pid != 0) { //다음 프로세스가 0이 아닐 경우
 
@@ -94,8 +95,9 @@ void schedule(void)
 
 	}
 
-	cur_process->time_slice = 0;
+	cur_process->time_slice = 0; //time_slice를 0으로 초기화
 
+	
 	switch_process(cur, next); //프로세스 스위칭 (스위칭 동안에는 인터럽트 핸들러가 발생해선 안됨)
 	intr_enable(); //인터럽트 활성화
 	
