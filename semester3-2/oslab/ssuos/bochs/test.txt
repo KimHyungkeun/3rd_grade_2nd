@@ -69,34 +69,3 @@ hash value deleted : idx : 76, key : 2, value : 202000
 hash value deleted : idx : 13, key : 4, value : 204000
 hash value deleted : idx : 45, key : 5, value : 205000
 hash value deleted : idx : 109, key : 7, value : 207000
-Testing semaphores...hash value inserted in top level : idx : 76, key : 2, value : 202000
-hash value inserted in top level : idx : 13, key : 4, value : 204000
-Page fault : C0000000
-hash value inserted in top level : idx : 45, key : 5, value : 205000
-Page fault : C0001000
-hash value inserted in top level : idx : 77, key : 6, value : 206000
-hash value deleted : idx : 13, key : 4, value : 204000
-hash value deleted : idx : 45, key : 5, value : 205000
-hash value deleted : idx : 77, key : 6, value : 206000
-done.
-========== initialization complete ==========
-hash value inserted in top level : idx : 109, key : 7, value : 207000
-hash value inserted in top level : idx : 199, key : 2, value : 202000
-hash value inserted in top level : idx : 13, key : 4, value : 204000
-hash value inserted in top level : idx : 45, key : 5, value : 205000
-hash value inserted in top level : idx : 77, key : 6, value : 206000
-Page fault : C0008000
-hash value inserted in top level : idx : 14, key : 8, value : 208000
-Page fault : C0009000
-hash value inserted in top level : idx : 46, key : 9, value : 209000
-Page fault : C000A000
-hash value inserted in top level : idx : 78, key : 10, value : 20a000
-Page fault : C000B000
-hash value inserted in top level : idx : 110, key : 11, value : 20b000
-Page fault : C000C000
-hash value inserted in top level : idx : 15, key : 12, value : 20c000
-Page fault : C000D000
-hash value inserted in top level : idx : 47, key : 13, value : 20d000
-Page fault : C000E000
-hash value inserted in top level : idx : 79, key : 14, value : 20e000
-id : 

@@ -41,7 +41,7 @@ void init_hash_table(void)
 
 void insert_hash_table(void* pages, size_t page_idx) {
     
-    int i;
+    int i, full_top = 0;
     uint32_t hash1_idx, hash2_idx; 
     uint32_t idx, value, key;
     uint32_t *virtual_address = (uint32_t *)pages;
@@ -74,13 +74,39 @@ void insert_hash_table(void* pages, size_t page_idx) {
             printk("hash value inserted in top level : idx : %d, key : %d, value : %x\n",idx,key,value);
             break;
         }
+
+        else
+            full_top++;
+        
+    }
+
+    if( full_top == SLOT_NUM ) {
+         for (i = 0 ; i < SLOT_NUM ; i++) {
+             if ( hash_table.bottom_buckets[hash1_idx/2].token[i] == 0 ) {
+                hash_table.bottom_buckets[hash1_idx/2].token[i] = 1;
+                hash_table.bottom_buckets[hash1_idx/2].slot[i].key = key;
+                hash_table.bottom_buckets[hash1_idx/2].slot[i].value = value;
+                idx = hash1_idx/2;
+                printk("hash value inserted in bottom level : idx : %d, key : %d, value : %x\n",idx,key,value);
+                break;
+            }
+
+            else if ( hash_table.bottom_buckets[hash2_idx/2].token[i] == 0 ) {
+                hash_table.bottom_buckets[hash2_idx/2].token[i] = 1;
+                hash_table.bottom_buckets[hash2_idx/2].slot[i].key = key;
+                hash_table.bottom_buckets[hash2_idx/2].slot[i].value = value;
+                idx = hash2_idx/2;
+                printk("hash value inserted in bottom level : idx : %d, key : %d, value : %x\n",idx,key,value);
+                break;
+            }
+         }
     }
     
 }
 
 void delete_hash_table(void* pages, size_t page_idx) {
     
-   int i;
+   int i, full_top = 0;;
    uint32_t hash1_idx, hash2_idx; 
    uint32_t idx, value, key;
    uint32_t *virtual_address = (uint32_t *)pages;
@@ -96,21 +122,41 @@ void delete_hash_table(void* pages, size_t page_idx) {
     key = page_idx;
 
     for (i = 0 ; i < SLOT_NUM ; i++) {
-        if ( hash_table.top_buckets[hash1_idx].slot[i].value == value ) {
+        if ( hash_table.top_buckets[hash1_idx].slot[i].key == key ) {
             hash_table.top_buckets[hash1_idx].token[i] = 0;
             idx = hash1_idx;
             break;
         }
 
-        else if ( hash_table.top_buckets[hash2_idx].slot[i].value == value ) {
+        else if ( hash_table.top_buckets[hash2_idx].slot[i].key == key ) {
             hash_table.top_buckets[hash2_idx].token[i] = 0;
             idx = hash2_idx;
             break;
         }
 
         else
+            full_top++;
+    }
+
+    if (full_top == SLOT_NUM) {
+        for (i = 0 ; i < SLOT_NUM ; i++) {
+            if ( hash_table.bottom_buckets[hash1_idx/2].slot[i].key == key ) {
+                hash_table.bottom_buckets[hash1_idx/2].token[i] = 0;
+                idx = hash1_idx/2;
+                break;
+            }
+
+            else if ( hash_table.bottom_buckets[hash2_idx/2].slot[i].key == key ) {
+                hash_table.bottom_buckets[hash2_idx/2].token[i] = 0;
+                idx = hash2_idx/2;
+                break;
+            }
+
+        }
+    }
+
+    if ( i == SLOT_NUM ) {
             return;
-        
     }
 
     printk("hash value deleted : idx : %d, key : %d, value : %x\n",idx,key,value);

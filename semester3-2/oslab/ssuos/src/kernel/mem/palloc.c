@@ -116,6 +116,8 @@ palloc_free_multiple (void *pages, size_t page_cnt)
 	if (pages == NULL || page_cnt == 0)
 		return;
 
+	delete_hash_table(pages, page_idx);	
+
 	if(khpage == NULL){
 		freelist.list = khpage_list + page_idx;
 		freelist.list->nalloc = page_cnt;
@@ -133,7 +135,7 @@ palloc_free_multiple (void *pages, size_t page_cnt)
 	}
 
 	freelist.nfree++;
-	delete_hash_table(pages, page_idx);
+	
 	
 	//printk("void palloc_free_multiple(void *pages, size_t page_cnt)\n");
 }
