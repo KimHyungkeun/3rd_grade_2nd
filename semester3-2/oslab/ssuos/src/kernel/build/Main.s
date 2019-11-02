@@ -86,6 +86,9 @@ ssuos_main:
 	.string	"Hash Table Initialization\n"
 .LC12:
 	.string	"Process Intialization\n"
+	.align 4
+.LC13:
+	.string	"========== initialization complete ==========\n\n"
 	.text
 	.globl	main_init
 	.type	main_init, @function
@@ -184,64 +187,76 @@ main_init:
 	call	palloc_pf_test
 	.loc 1 76 0
 	call	refreshScreen
-.L4:
-	.loc 1 78 0 discriminator 1
-	jmp	.L4
+	.loc 1 80 0
+	call	sema_self_test
+	.loc 1 81 0
+	subl	$12, %esp
+	pushl	$.LC13
+	call	printk
+	addl	$16, %esp
+	.loc 1 85 0
+	call	refreshScreen
+	.loc 1 88 0
+	nop
+	leave
+	.cfi_restore 5
+	.cfi_def_cfa 4, 4
+	ret
 	.cfi_endproc
 .LFE19:
 	.size	main_init, .-main_init
 	.section	.rodata
-.LC13:
+.LC14:
 	.string	"SSUOS main start!!!!\n"
 	.align 4
-.LC14:
+.LC15:
 	.string	"          ______    ______   __    __         ______    ______  \n"
 	.align 4
-.LC15:
+.LC16:
 	.string	"         /      \\  /      \\ /  |  /  |       /      \\  /      \\ \n"
 	.align 4
-.LC16:
+.LC17:
 	.string	"        /$$$$$$  |/$$$$$$  |$$ |  $$ |      /$$$$$$  |/$$$$$$  |\n"
 	.align 4
-.LC17:
+.LC18:
 	.string	"        $$ \\__$$/ $$ \\__$$/ $$ |  $$ |      $$ |  $$ |$$ \\__$$/ \n"
 	.align 4
-.LC18:
+.LC19:
 	.string	"        $$      \\ $$      \\ $$ |  $$ |      $$ |  $$ |$$      \\ \n"
 	.align 4
-.LC19:
+.LC20:
 	.string	"         $$$$$$  | $$$$$$  |$$ |  $$ |      $$ |  $$ | $$$$$$  |\n"
 	.align 4
-.LC20:
+.LC21:
 	.string	"        /  \\__$$ |/  \\__$$ |$$ \\__$$ |      $$ \\__$$ |/  \\__$$ |\n"
 	.align 4
-.LC21:
+.LC22:
 	.string	"        $$    $$/ $$    $$/ $$    $$/       $$    $$/ $$    $$/ \n"
 	.align 4
-.LC22:
-	.string	"         $$$$$$/   $$$$$$/   $$$$$$/         $$$$$$/   $$$$$$/  \n"
 .LC23:
+	.string	"         $$$$$$/   $$$$$$/   $$$$$$/         $$$$$$/   $$$$$$/  \n"
+.LC24:
 	.string	"\n"
 	.align 4
-.LC24:
+.LC25:
 	.string	"****************Made by OSLAB in SoongSil University*********************\n"
 	.align 4
-.LC25:
+.LC26:
 	.string	"contributors : Yunkyu Lee  , Minwoo Jang  , Sanghun Choi , Eunseok Choi\n"
 	.align 4
-.LC26:
+.LC27:
 	.string	"               Hyunho Ji   , Giwook Kang  , Kisu Kim     , Seonguk Lee \n"
 	.align 4
-.LC27:
+.LC28:
 	.string	"               Gibeom Byeon, Jeonghwan Lee, Kyoungmin Kim, Myungjoon Shon\n"
 	.align 4
-.LC28:
+.LC29:
 	.string	"               Hansol Lee  , Jinwoo Lee   , Mhanwoo Heo\n"
 	.align 4
-.LC29:
+.LC30:
 	.string	"************************  Professor. Jiman Hong  ************************\n"
 	.align 4
-.LC30:
+.LC31:
 	.string	"                                                                  \n"
 	.text
 	.globl	print_contributors
@@ -258,103 +273,103 @@ print_contributors:
 	subl	$8, %esp
 	.loc 1 92 0
 	subl	$8, %esp
-	pushl	$.LC13
+	pushl	$.LC14
 	pushl	$.LC4
 	call	printk
 	addl	$16, %esp
 	.loc 1 93 0
 	subl	$12, %esp
-	pushl	$.LC14
+	pushl	$.LC15
 	call	printk
 	addl	$16, %esp
 	.loc 1 94 0
 	subl	$12, %esp
-	pushl	$.LC15
+	pushl	$.LC16
 	call	printk
 	addl	$16, %esp
 	.loc 1 95 0
 	subl	$12, %esp
-	pushl	$.LC16
+	pushl	$.LC17
 	call	printk
 	addl	$16, %esp
 	.loc 1 96 0
 	subl	$12, %esp
-	pushl	$.LC17
+	pushl	$.LC18
 	call	printk
 	addl	$16, %esp
 	.loc 1 97 0
 	subl	$12, %esp
-	pushl	$.LC18
+	pushl	$.LC19
 	call	printk
 	addl	$16, %esp
 	.loc 1 98 0
 	subl	$12, %esp
-	pushl	$.LC19
+	pushl	$.LC20
 	call	printk
 	addl	$16, %esp
 	.loc 1 99 0
 	subl	$12, %esp
-	pushl	$.LC20
+	pushl	$.LC21
 	call	printk
 	addl	$16, %esp
 	.loc 1 100 0
 	subl	$12, %esp
-	pushl	$.LC21
+	pushl	$.LC22
 	call	printk
 	addl	$16, %esp
 	.loc 1 101 0
 	subl	$12, %esp
-	pushl	$.LC22
+	pushl	$.LC23
 	call	printk
 	addl	$16, %esp
 	.loc 1 102 0
 	subl	$12, %esp
-	pushl	$.LC23
+	pushl	$.LC24
 	call	printk
 	addl	$16, %esp
 	.loc 1 103 0
 	subl	$12, %esp
-	pushl	$.LC24
+	pushl	$.LC25
 	call	printk
 	addl	$16, %esp
 	.loc 1 104 0
 	subl	$12, %esp
-	pushl	$.LC23
+	pushl	$.LC24
 	call	printk
 	addl	$16, %esp
 	.loc 1 105 0
 	subl	$12, %esp
-	pushl	$.LC25
+	pushl	$.LC26
 	call	printk
 	addl	$16, %esp
 	.loc 1 106 0
 	subl	$12, %esp
-	pushl	$.LC26
+	pushl	$.LC27
 	call	printk
 	addl	$16, %esp
 	.loc 1 107 0
 	subl	$12, %esp
-	pushl	$.LC27
+	pushl	$.LC28
 	call	printk
 	addl	$16, %esp
 	.loc 1 108 0
 	subl	$12, %esp
-	pushl	$.LC28
+	pushl	$.LC29
 	call	printk
 	addl	$16, %esp
 	.loc 1 109 0
 	subl	$12, %esp
-	pushl	$.LC23
+	pushl	$.LC24
 	call	printk
 	addl	$16, %esp
 	.loc 1 110 0
 	subl	$12, %esp
-	pushl	$.LC29
+	pushl	$.LC30
 	call	printk
 	addl	$16, %esp
 	.loc 1 111 0
 	subl	$12, %esp
-	pushl	$.LC30
+	pushl	$.LC31
 	call	printk
 	addl	$16, %esp
 	.loc 1 112 0

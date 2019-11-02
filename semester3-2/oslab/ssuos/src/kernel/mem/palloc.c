@@ -45,7 +45,7 @@ init_palloc (void)
 	page_alloc_index = 0;
 	freelist.list = NULL;
 	freelist.nfree = 0;
-	//printk("void init_palloc()\n");
+	
 }
 
 /* Obtains and returns a group of PAGE_CNT contiguous free pages.
@@ -93,7 +93,7 @@ palloc_get_multiple (size_t page_cnt)
 	}
 
 	//printk("uint32_t * palloc_get_multiple(size_t page_cnt)\n");
-	insert_hash_table(pages, page_idx);
+	insert_hash_table(pages, page_idx); //해쉬 값 추가기능
 	return (uint32_t*)pages; 
 }
 
@@ -102,7 +102,7 @@ palloc_get_multiple (size_t page_cnt)
 	uint32_t *
 palloc_get_page (void) 
 {
-	//printk("uint32_t * palloc_get_page(void)\n");
+	
 	return palloc_get_multiple (1);
 }
 
@@ -116,7 +116,7 @@ palloc_free_multiple (void *pages, size_t page_cnt)
 	if (pages == NULL || page_cnt == 0)
 		return;
 
-	delete_hash_table(pages, page_idx);	
+	delete_hash_table(pages, page_idx);	//해쉬 값 삭제기능
 
 	if(khpage == NULL){
 		freelist.list = khpage_list + page_idx;
@@ -137,14 +137,12 @@ palloc_free_multiple (void *pages, size_t page_cnt)
 	freelist.nfree++;
 	
 	
-	//printk("void palloc_free_multiple(void *pages, size_t page_cnt)\n");
 }
 
 /* Frees the page at PAGE. */
 	void
 palloc_free_page (void *page) 
 {
-	//printk("void palloc_free_page(void *page)\n");
 	palloc_free_multiple (page, 1);
 }
 
