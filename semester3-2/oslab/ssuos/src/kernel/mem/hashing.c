@@ -41,9 +41,10 @@ void init_hash_table(void)
 
 void insert_hash_table(void* pages, size_t page_idx) { //해쉬테이블에 값 넣는 함수
     
-    int i, full_top = 0; //full_top : top_bucket이 꽉차있음을 알려주기 위한 변수
+    int i,j, full_top = 0, new_hash_count = 0; //full_top : top_bucket이 꽉차있음을 알려주기 위한 변수
     uint32_t hash1_idx, hash2_idx; //hash1, hash2에 각각 적용될 bucket 인덱스
-    uint32_t idx, value, key;
+    uint32_t find_hash1, find_hash2; //새 해쉬값을 구해서 value 이동에 필요한 위치를 구하려한다.
+    uint32_t idx, value, key, virt_value;
     uint32_t *virtual_address = (uint32_t *)pages; //가상주소를 담음
 
     // idx : hash value (F_IDX or S_IDX)
@@ -99,8 +100,158 @@ void insert_hash_table(void* pages, size_t page_idx) { //해쉬테이블에 값 
                 printk("hash value inserted in bottom level : idx : %d, key : %d, value : %x\n",idx,key,value);
                 break;
             }
-            
+
+            else
+                full_top++;
          }
+    }
+
+    if (full_top == SLOT_NUM * 2) { //top_bucket, bottom_bucket을 둘러봐도 빈칸이 없을때
+        for (i = 0 ; i < SLOT_NUM; i++) {
+            virt_value = RH_TO_VH(hash_table.top_buckets[hash1_idx].slot[i].value); //hash1에 대한 해쉬값을 다시 가상주소로 바꾼다.
+            find_hash1 = F_IDX(virt_value, CAPACITY); //바꾼 가상주소로 새로운 해쉬1을 만듦
+            find_hash2 = S_IDX(virt_value, CAPACITY); //바꾼 가상주소로 새로운 해쉬2를 만듦
+
+            if(hash1_idx == find_hash1) { //구 해쉬값과 현재 해쉬값을 비교해서 같으면
+                for(j = 0 ; j < SLOT_NUM ; j++) {
+                    if(hash_table.top_buckets[find_hash2].token[j] == 0) { // 다른 해쉬값을 인덱스로 하여 값 설정
+                        hash_table.top_buckets[find_hash2].token[j] = 1;
+                        hash_table.top_buckets[find_hash2].slot[j].value = value;
+                        hash_table.top_buckets[find_hash2].slot[j].key = key;
+                        idx = find_hash2;
+                        printk("hash value inserted in top level : idx : %d, key : %d, value : %x\n",idx,key,value);
+                        return;
+                    }
+                }
+            }
+
+            else if(hash1_idx == find_hash2) { 
+                for(j = 0 ; j < SLOT_NUM ; j++) { //구 해쉬값과 현재 해쉬값을 비교해서 같으면
+                    if(hash_table.top_buckets[find_hash1].token[j] == 0) { // 다른 해쉬값을 인덱스로 하여 값 설정
+                        hash_table.top_buckets[find_hash1].token[j] = 1;
+                        hash_table.top_buckets[find_hash1].slot[j].value = value;
+                        hash_table.top_buckets[find_hash1].slot[j].key = key;
+                        idx = find_hash1;
+                        printk("hash value inserted in top level : idx : %d, key : %d, value : %x\n",idx,key,value);
+                        return;
+                    }
+                }
+            }
+
+            else
+                new_hash_count++; //어떠한 경우도 해당되지 않으면 new_hash_count 카운터를 증가시킴
+        }
+
+        if (new_hash_count == SLOT_NUM) {
+            for (i = 0 ; i < SLOT_NUM; i++) {
+                virt_value = RH_TO_VH(hash_table.top_buckets[hash2_idx].slot[i].value); //hash2에 대한 해쉬값을 다시 가상주소로 바꾼다.
+                find_hash1 = F_IDX(virt_value, CAPACITY); //바꾼 가상주소로 새로운 해쉬1을 만듦
+                find_hash2 = S_IDX(virt_value, CAPACITY); //바꾼 가상주소로 새로운 해쉬2을 만듦
+
+                if(hash2_idx == find_hash1) {
+                    for(j = 0 ; j < SLOT_NUM ; j++) { //구 해쉬값과 현재 해쉬값을 비교해서 같으면
+                        if(hash_table.top_buckets[find_hash2].token[j] == 0) { // 다른 해쉬값을 인덱스로 하여 값 설정
+                            hash_table.top_buckets[find_hash2].token[j] = 1;
+                            hash_table.top_buckets[find_hash2].slot[j].value = value;
+                            hash_table.top_buckets[find_hash2].slot[j].key = key;
+                            idx = find_hash2;
+                            printk("hash value inserted in top level : idx : %d, key : %d, value : %x\n",idx,key,value);
+                            return;
+                        }
+                    }
+                }
+
+                else if(hash2_idx == find_hash2) { //구 해쉬값과 현재 해쉬값을 비교해서 같으면
+                    for(j = 0 ; j < SLOT_NUM ; j++) {
+                        if(hash_table.top_buckets[find_hash1].token[j] == 0) {  // 다른 해쉬값을 인덱스로 하여 값 설정
+                            hash_table.top_buckets[find_hash1].token[j] = 1;
+                            hash_table.top_buckets[find_hash1].slot[j].value = value;
+                            hash_table.top_buckets[find_hash1].slot[j].key = key;
+                            idx = find_hash1;
+                            printk("hash value inserted in top level : idx : %d, key : %d, value : %x\n",idx,key,value);
+                            return;
+                        }
+                    }
+                }
+
+                else
+                    new_hash_count++;
+            }
+        }
+
+        if (new_hash_count == SLOT_NUM * 2) { //top_bucket이 모두 꽉찬경우 bottom_bucket 탐색시작
+            for (i = 0 ; i < SLOT_NUM; i++) {
+                virt_value = RH_TO_VH(hash_table.bottom_buckets[hash1_idx/2].slot[i].value); //hash2에 대한 해쉬값을 다시 가상주소로 바꾼다.
+                find_hash1 = F_IDX(virt_value, CAPACITY); //바꾼 가상주소로 새로운 해쉬1을 만듦
+                find_hash2 = S_IDX(virt_value, CAPACITY); //바꾼 가상주소로 새로운 해쉬2을 만듦
+
+                if(hash1_idx/2 == find_hash1/2) { //구 해쉬값과 현재 해쉬값을 비교해서 같으면
+                    for(j = 0 ; j < SLOT_NUM ; j++) {
+                        if(hash_table.bottom_buckets[find_hash2/2].token[j] == 0) { // 다른 해쉬값을 인덱스로 하여 값 설정
+                            hash_table.bottom_buckets[find_hash2/2].token[j] = 1;
+                            hash_table.bottom_buckets[find_hash2/2].slot[j].value = value;
+                            hash_table.bottom_buckets[find_hash2/2].slot[j].key = key;
+                            idx = find_hash2/2;
+                            printk("hash value inserted in bottom level : idx : %d, key : %d, value : %x\n",idx,key,value);
+                            return;
+                        }
+                    }
+                }
+
+                else if(hash1_idx/2 == find_hash2/2) { //구 해쉬값과 현재 해쉬값을 비교해서 같으면
+                    for(j = 0 ; j < SLOT_NUM ; j++) {
+                        if(hash_table.top_buckets[find_hash1/2].token[j] == 0) { // 다른 해쉬값을 인덱스로 하여 값 설정
+                            hash_table.top_buckets[find_hash1/2].token[j] = 1;
+                            hash_table.top_buckets[find_hash1/2].slot[j].value = value;
+                            hash_table.top_buckets[find_hash1/2].slot[j].key = key;
+                            idx = find_hash1/2;
+                            printk("hash value inserted in bottom level : idx : %d, key : %d, value : %x\n",idx,key,value);
+                            return;
+                        }
+                    }
+                }
+
+                else
+                    new_hash_count++;
+            }
+        }
+
+        if (new_hash_count == SLOT_NUM * 3) { //다른 bottom_bucket을 탐색한다.
+            for (i = 0 ; i < SLOT_NUM; i++) {
+                virt_value = RH_TO_VH(hash_table.bottom_buckets[hash2_idx/2].slot[i].value);
+                find_hash1 = F_IDX(virt_value, CAPACITY);
+                find_hash2 = S_IDX(virt_value, CAPACITY);
+
+                if(hash2_idx/2 == find_hash1/2) { //구 해쉬값과 현재 해쉬값을 비교해서 같으면
+                    for(j = 0 ; j < SLOT_NUM ; j++) {
+                        if(hash_table.bottom_buckets[find_hash2/2].token[j] == 0) { // 다른 해쉬값을 인덱스로 하여 값 설정
+                            hash_table.bottom_buckets[find_hash2/2].token[j] = 1;
+                            hash_table.bottom_buckets[find_hash2/2].slot[j].value = value;
+                            hash_table.bottom_buckets[find_hash2/2].slot[j].key = key;
+                            idx = find_hash2/2;
+                            printk("hash value inserted in bottom level : idx : %d, key : %d, value : %x\n",idx,key,value);
+                            return;
+                        }
+                    }
+                }
+
+                else if(hash2_idx/2 == find_hash2/2) { //구 해쉬값과 현재 해쉬값을 비교해서 같으면
+                    for(j = 0 ; j < SLOT_NUM ; j++) {
+                        if(hash_table.top_buckets[find_hash1/2].token[j] == 0) { // 다른 해쉬값을 인덱스로 하여 값 설정
+                            hash_table.top_buckets[find_hash1/2].token[j] = 1;
+                            hash_table.top_buckets[find_hash1/2].slot[j].value = value;
+                            hash_table.top_buckets[find_hash1/2].slot[j].key = key;
+                            idx = find_hash1/2;
+                            printk("hash value inserted in bottom level : idx : %d, key : %d, value : %x\n",idx,key,value);
+                            return;
+                        }
+                    }
+                }
+
+                else
+                    new_hash_count++; //해쉬카운트 값만 올린다.
+            }
+        }
     }
     
 }

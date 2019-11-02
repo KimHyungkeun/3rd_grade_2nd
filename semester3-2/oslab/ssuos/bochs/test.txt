@@ -110,11 +110,12 @@ Page fault : C0011000
 hash value inserted in top level : idx : 48, key : 17, value : 211000
 Page fault : C0012000
 hash value inserted in top level : idx : 80, key : 18, value : 212000
-pid 0 ppid non state 1 prio 0 using time 55 sched time 0, pd = 200000
+pid 0 ppid non state 1 prio 0 using time 57 sched time 0, pd = 200000
 pid 2 ppid 0 state 1 prio 200 using time 0 sched time 0, pd = 202000
 pid 3 ppid 0 state 1 prio 200 using time 0 sched time 0, pd = 208000
-pid 4 ppid 0 state 1 prio 100 using time 2810 sched time 0, pd = 20c000
-pid 5 ppid 4 state 1 prio 100 using time 17 sched time 0, pd = 210000
+pid 4 ppid 0 state 1 prio 100 using time 20280 sched time 0, pd = 20c000
+pid 5 ppid 4 state 1 prio 100 using time 16 sched time 0, pd = 210000
 hash value deleted : idx : 16, key : 16, value : 210000
 hash value deleted : idx : 48, key : 17, value : 211000
 hash value deleted : idx : 80, key : 18, value : 212000
+hash value deleted : idx : 16, key : 16, value : 210000
