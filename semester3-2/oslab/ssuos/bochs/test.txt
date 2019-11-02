@@ -1,0 +1,102 @@
+Real Mode
+Protected Mode
+SSUOS main start!!!!
+          ______    ______   __    __         ______    ______  
+         /      \  /      \ /  |  /  |       /      \  /      \ 
+        /$$$$$$  |/$$$$$$  |$$ |  $$ |      /$$$$$$  |/$$$$$$  |
+        $$ \__$$/ $$ \__$$/ $$ |  $$ |      $$ |  $$ |$$ \__$$/ 
+        $$      \ $$      \ $$ |  $$ |      $$ |  $$ |$$      \ 
+         $$$$$$  | $$$$$$  |$$ |  $$ |      $$ |  $$ | $$$$$$  |
+        /  \__$$ |/  \__$$ |$$ \__$$ |      $$ \__$$ |/  \__$$ |
+        $$    $$/ $$    $$/ $$    $$/       $$    $$/ $$    $$/ 
+         $$$$$$/   $$$$$$/   $$$$$$/         $$$$$$/   $$$$$$/  
+****************Made by OSLAB in SoongSil University*********************
+contributors : Yunkyu Lee  , Minwoo Jang  , Sanghun Choi , Eunseok Choi
+               Hyunho Ji   , Giwook Kang  , Kisu Kim     , Seonguk Lee 
+               Gibeom Byeon, Jeonghwan Lee, Kyoungmin Kim, Myungjoon Shon
+               Hansol Lee  , Jinwoo Lee   , Mhanwoo Heo
+************************  Professor. Jiman Hong  ************************
+                                                                  
+Memory Detecting
+-Memory size = 131072 Kbytes
+PIT Intialization
+System call Intialization
+idtr size : 2047 address : 0x40000
+Timer Handler Registration
+Keyboard Handler Registeration
+System Call Handler Registeration
+Interrupt Initialization
+Interrupt Initialization
+Palloc Initialization
+hash value inserted in top level : idx : 12, key : 0, value : 200000
+hash value inserted in top level : idx : 44, key : 1, value : 201000
+-PE=32768, PT=32
+-page dir=200000 page tbl=201000
+Paging Initialization
+Hash Table Initialization
+Process Intialization
+------------------------------------
+Page fault : C0002000
+hash value inserted in top level : idx : 108, key : 3, value : 203000
+hash value inserted in top level : idx : 76, key : 2, value : 202000
+Page fault : C0004000
+hash value inserted in top level : idx : 13, key : 4, value : 204000
+Page fault : C0005000
+Page fault : C0006000
+hash value inserted in top level : idx : 45, key : 5, value : 205000
+one_page1 = c0002000
+one_page2 = c0004000
+two_page1 = c0005000
+=----------------------------------=
+hash value deleted : idx : 76, key : 2, value : 202000
+hash value deleted : idx : 13, key : 4, value : 204000
+hash value deleted : idx : 45, key : 5, value : 205000
+hash value inserted in top level : idx : 76, key : 2, value : 202000
+hash value inserted in top level : idx : 45, key : 5, value : 205000
+hash value inserted in top level : idx : 13, key : 4, value : 204000
+one_page1 = c0002000
+one_page2 = c0004000
+two_page1 = c0005000
+=----------------------------------=
+hash value deleted : idx : 13, key : 4, value : 204000
+Page fault : C0007000
+hash value inserted in top level : idx : 109, key : 7, value : 207000
+hash value inserted in top level : idx : 13, key : 4, value : 204000
+one_page1 = c0002000
+one_page2 = c0007000
+three_page = c0004000
+hash value deleted : idx : 76, key : 2, value : 202000
+hash value deleted : idx : 13, key : 4, value : 204000
+hash value deleted : idx : 45, key : 5, value : 205000
+hash value deleted : idx : 109, key : 7, value : 207000
+Testing semaphores...hash value inserted in top level : idx : 76, key : 2, value : 202000
+hash value inserted in top level : idx : 13, key : 4, value : 204000
+Page fault : C0000000
+hash value inserted in top level : idx : 45, key : 5, value : 205000
+Page fault : C0001000
+hash value inserted in top level : idx : 77, key : 6, value : 206000
+hash value deleted : idx : 13, key : 4, value : 204000
+hash value deleted : idx : 45, key : 5, value : 205000
+hash value deleted : idx : 77, key : 6, value : 206000
+done.
+========== initialization complete ==========
+hash value inserted in top level : idx : 109, key : 7, value : 207000
+hash value inserted in top level : idx : 199, key : 2, value : 202000
+hash value inserted in top level : idx : 13, key : 4, value : 204000
+hash value inserted in top level : idx : 45, key : 5, value : 205000
+hash value inserted in top level : idx : 77, key : 6, value : 206000
+Page fault : C0008000
+hash value inserted in top level : idx : 14, key : 8, value : 208000
+Page fault : C0009000
+hash value inserted in top level : idx : 46, key : 9, value : 209000
+Page fault : C000A000
+hash value inserted in top level : idx : 78, key : 10, value : 20a000
+Page fault : C000B000
+hash value inserted in top level : idx : 110, key : 11, value : 20b000
+Page fault : C000C000
+hash value inserted in top level : idx : 15, key : 12, value : 20c000
+Page fault : C000D000
+hash value inserted in top level : idx : 47, key : 13, value : 20d000
+Page fault : C000E000
+hash value inserted in top level : idx : 79, key : 14, value : 20e000
+id : 

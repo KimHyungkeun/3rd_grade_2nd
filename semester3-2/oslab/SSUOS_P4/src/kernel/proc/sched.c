@@ -3,7 +3,7 @@
 #include <mem/malloc.h>
 #include <proc/proc.h>
 #include <proc/switch.h>
-#include <interrupt.h>WS
+#include <interrupt.h>
 
 extern struct list plist;
 extern struct list rlist;
@@ -54,7 +54,8 @@ void schedule(void)
 	struct process *p;
 
 	struct list_elem *elem;
-	bool found = false;
+	bool flag = true;
+	
 
 	
 
@@ -73,17 +74,19 @@ void schedule(void)
 	
 
 	if (next->pid != 0) { //다음 프로세스가 0이 아닐 경우
-
+		
 		for (elem = list_begin(&plist); elem != list_end(&plist); elem = list_next(elem)) { 
 			p = list_entry(elem, struct process, elem_all); //프로세스 전체 배열인 plist에 대해 검사한다
 			if (p->pid != 0) { //만약 프로세스가 0번이 아니고 run 상태면
 				if (p -> state == PROC_RUN) {
-					if (found == false)  //found flag가 false로 설정
-						found = true; //이를 true로 설정하고
-					else 
-						printk(", "); //이미 true이면 쉼표를 출력
-
-					printk("#= %d p= %d c= %d u= %d ", p->pid, p->priority, p->time_slice, p->time_used); //pid, priority,time_slice, time_used 출력
+						
+					if (flag == true) //프로세스 리스트의 마지막이면 쉼표를 출력하지 않고
+						flag = false;
+					else
+						printk(", "); //만약 아니라면 쉼표를 출력
+					 
+					printk("#= %d p= %d c= %d u= %d", p->pid, p->priority, p->time_slice, p->time_used); //pid, priority,time_slice, time_used 출력
+					
 				}
 				
 			}
