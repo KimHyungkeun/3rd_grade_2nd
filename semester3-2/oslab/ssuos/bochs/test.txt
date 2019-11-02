@@ -110,12 +110,26 @@ Page fault : C0011000
 hash value inserted in top level : idx : 48, key : 17, value : 211000
 Page fault : C0012000
 hash value inserted in top level : idx : 80, key : 18, value : 212000
-pid 0 ppid non state 1 prio 0 using time 57 sched time 0, pd = 200000
+pid 0 ppid non state 1 prio 0 using time 54 sched time 0, pd = 200000
 pid 2 ppid 0 state 1 prio 200 using time 0 sched time 0, pd = 202000
 pid 3 ppid 0 state 1 prio 200 using time 0 sched time 0, pd = 208000
-pid 4 ppid 0 state 1 prio 100 using time 20280 sched time 0, pd = 20c000
+pid 4 ppid 0 state 1 prio 100 using time 3990 sched time 0, pd = 20c000
 pid 5 ppid 4 state 1 prio 100 using time 16 sched time 0, pd = 210000
 hash value deleted : idx : 16, key : 16, value : 210000
 hash value deleted : idx : 48, key : 17, value : 211000
 hash value deleted : idx : 80, key : 18, value : 212000
 hash value deleted : idx : 16, key : 16, value : 210000
+> uname
+hash value inserted in top level : idx : 190, key : 15, value : 20f000
+Page fault : C0013000
+hash value inserted in top level : idx : 112, key : 19, value : 213000
+Page fault : C0014000
+hash value inserted in top level : idx : 17, key : 20, value : 214000
+Page fault : C0015000
+hash value inserted in top level : idx : 49, key : 21, value : 215000
+SSUOS 0.1.02
+made by OSLAB
+modefied by You
+hash value deleted : idx : 112, key : 19, value : 213000
+hash value deleted : idx : 17, key : 20, value : 214000
+hash value deleted : idx : 49, key : 21, value : 215000

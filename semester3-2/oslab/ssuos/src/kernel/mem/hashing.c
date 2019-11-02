@@ -277,13 +277,15 @@ void delete_hash_table(void* pages, size_t page_idx) { //해쉬테이블로부�
         if ( hash_table.top_buckets[hash1_idx].slot[i].key == key ) { //해당하는 위치를 key와 hash1_idx를 이용해 찾는다
             hash_table.top_buckets[hash1_idx].token[i] = 0; //토큰을 0으로 한다. (값이 지워졌다는 뜻)
             idx = hash1_idx;
-            break;
+            printk("hash value deleted : idx : %d, key : %d, value : %x\n",idx,key,value);
+            return;
         }
 
         else if ( hash_table.top_buckets[hash2_idx].slot[i].key == key ) { //해당하는 위치를 key와 hash2_idx를 이용해 찾는다.
             hash_table.top_buckets[hash2_idx].token[i] = 0; //토큰을 0으로 한다. (값이 존재하지 않음)
             idx = hash2_idx; 
-            break;
+            printk("hash value deleted : idx : %d, key : %d, value : %x\n",idx,key,value);
+            return;
         }
 
         else
@@ -295,13 +297,15 @@ void delete_hash_table(void* pages, size_t page_idx) { //해쉬테이블로부�
             if ( hash_table.bottom_buckets[hash1_idx/2].slot[i].key == key ) { //키와 hash1_idx를 사용해 원하는 값을 찾음
                 hash_table.bottom_buckets[hash1_idx/2].token[i] = 0; //토큰을 0으로 함(값이 존재하지 않음)
                 idx = hash1_idx/2;
-                break;
+                printk("hash value deleted : idx : %d, key : %d, value : %x\n",idx,key,value);
+                return;
             }
 
             else if ( hash_table.bottom_buckets[hash2_idx/2].slot[i].key == key ) { //키와 hash2_idx를 사용해 원하는 값을 찾음
                 hash_table.bottom_buckets[hash2_idx/2].token[i] = 0; //토큰을 0으로 함 (값이 존재하지 않음)
                 idx = hash2_idx/2;
-                break;
+                printk("hash value deleted : idx : %d, key : %d, value : %x\n",idx,key,value);
+                return;
             }
 
         }
@@ -311,6 +315,6 @@ void delete_hash_table(void* pages, size_t page_idx) { //해쉬테이블로부�
             return; //함수를 종료한다.
     }
 
-    printk("hash value deleted : idx : %d, key : %d, value : %x\n",idx,key,value);
+    
 
 }
