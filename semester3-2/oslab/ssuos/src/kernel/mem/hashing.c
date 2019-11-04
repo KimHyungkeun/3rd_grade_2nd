@@ -64,7 +64,7 @@ void insert_hash_table(void* pages, size_t page_idx) { //해쉬테이블에 값 
             hash_table.top_buckets[hash1_idx].slot[i].value = value; //value를 담는다.
             idx = hash1_idx;
             printk("hash value inserted in top level : idx : %d, key : %d, value : %x\n",idx,key,value);
-            break;
+            return;
         }
 
         else if ( hash_table.top_buckets[hash2_idx].token[i] == 0 ) { //만약 hash2가 가리키는 쪽의 토큰이 0이면
@@ -73,7 +73,7 @@ void insert_hash_table(void* pages, size_t page_idx) { //해쉬테이블에 값 
             hash_table.top_buckets[hash2_idx].slot[i].value = value; //value를 담는다
             idx = hash2_idx;
             printk("hash value inserted in top level : idx : %d, key : %d, value : %x\n",idx,key,value);
-            break;
+            return;
         }
 
         else
@@ -89,7 +89,7 @@ void insert_hash_table(void* pages, size_t page_idx) { //해쉬테이블에 값 
                 hash_table.bottom_buckets[hash1_idx/2].slot[i].value = value; //value를 넣는다.
                 idx = hash1_idx/2;
                 printk("hash value inserted in bottom level : idx : %d, key : %d, value : %x\n",idx,key,value);
-                break;
+                return;
             }
 
             else if ( hash_table.bottom_buckets[hash2_idx/2].token[i] == 0 ) { //초기 슬롯이 비어있다면
@@ -98,7 +98,7 @@ void insert_hash_table(void* pages, size_t page_idx) { //해쉬테이블에 값 
                 hash_table.bottom_buckets[hash2_idx/2].slot[i].value = value; //value를 넣음
                 idx = hash2_idx/2;
                 printk("hash value inserted in bottom level : idx : %d, key : %d, value : %x\n",idx,key,value);
-                break;
+                return;
             }
 
             else
@@ -308,10 +308,13 @@ void delete_hash_table(void* pages, size_t page_idx) { //해쉬테이블로부�
                 return;
             }
 
+            else
+                full_top++;
+                
         }
     }
 
-    if ( i == SLOT_NUM ) { //top_bucket, bottom_bucket을 모두 찾아봐도 없다면
+    if ( full_top == SLOT_NUM * 2) { //top_bucket, bottom_bucket을 모두 찾아봐도 없다면
             return; //함수를 종료한다.
     }
 
