@@ -252,9 +252,9 @@ void proc_free(void)
 	list_push_back(&d_list, &cur_process->elem_stat);
 
 	//palloc_free_one_page(cur_process->stack);
-	//palloc_free_one_page(RH_TO_VH(cur_process->pd));
-	//palloc_free_one_page(RH_TO_VH(pt));
-	//palloc_free_one_page(RH_TO_VH(pt2));
+	//palloc_free_one_page(pd);
+	//palloc_free_one_page(pt);
+	//palloc_free_one_page(pt2);
 	
 }
 
