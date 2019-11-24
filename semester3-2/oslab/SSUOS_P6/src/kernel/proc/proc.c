@@ -236,6 +236,7 @@ void  proc_start(void)
 	return;
 }
 
+//RH_TO_VH() 삭제
 void proc_free(void)
 {
 	
@@ -251,36 +252,9 @@ void proc_free(void)
 	list_push_back(&d_list, &cur_process->elem_stat);
 
 	//palloc_free_one_page(cur_process->stack);
-	//printk("cur_process->stack = %x\n", cur_process->stack);
-	
-	//palloc_free_one_page(cur_process->pd);
-	//printk("cur_process->pd = %x\n", cur_process->pd);
-	
-	//palloc_free_one_page(pt);
-	//printk("pt = %x\n", pt);
-	
-	//palloc_free_one_page(pt2);
-	//printk("pt2 = %x\n", pt2);
-	
-	
-	/*
-	uint32_t *pd = (uint32_t*)cur_process->pd;
-	pd = RH_TO_VH(pd);
-	uint32_t *pt = (uint32_t*) (pd[0] & PAGE_MASK_BASE);
-	uint32_t *pt2 = (uint32_t*) (pd[768] & PAGE_MASK_BASE);
-	cur_process->parent->child_pid = cur_process->pid;
-	cur_process->parent->simple_lock = 0;
-
-	list_remove(&cur_process->elem_stat);
-
-	cur_process->state = PROC_ZOMBIE;	
-	list_push_back(&d_list, &cur_process->elem_stat);
-
-	palloc_free_one_page(cur_process->stack);
-	palloc_free_one_page(RH_TO_VH(cur_process->pd));
-	palloc_free_one_page(RH_TO_VH(pt));
-	palloc_free_one_page(RH_TO_VH(pt2));
-	*/
+	//palloc_free_one_page(RH_TO_VH(cur_process->pd));
+	//palloc_free_one_page(RH_TO_VH(pt));
+	//palloc_free_one_page(RH_TO_VH(pt2));
 	
 }
 
