@@ -40,6 +40,8 @@ Hint : use 'printk' function to trace function call
 
 void init_proc()
 {
+
+	
 	int i;
 	process_stack_ofs = offsetof (struct process, stack);
 
@@ -73,6 +75,9 @@ void init_proc()
 	cur_process -> elem_all.next = NULL;
 	cur_process -> elem_stat.prev = NULL;
 	cur_process -> elem_stat.next = NULL;
+	
+
+	
 
 	/* You should modify this function... */
 	for (i = 0; i < RQ_NQS; i++) {
@@ -81,10 +86,12 @@ void init_proc()
 
 	list_push_back(&plist, &cur_process->elem_all);
 	
-	//proc_getpos(cur_process->priority, &i);
+	proc_getpos(cur_process->priority, &i);
 	for (i = 0; i < RQ_NQS; i++) {
   		list_push_back(&runq[i], &cur_process->elem_stat); //runq배열의 각 리스트에 대해 프로세스들을 집어넣는다.
  	}
+
+	
 	
  	
 }
@@ -140,6 +147,7 @@ pid_t proc_create(proc_func func, struct proc_option *opt, void* aux)
 	p->pd = pd_create(p->pid);
 
 	//init stack
+	
 	int *top = (int*)palloc_get_page();
 	int stack = (int)top;
 	top = (int*)stack + STACK_SIZE - 1;
@@ -209,6 +217,8 @@ void  proc_start(void)
 
 void proc_free(void)
 {
+
+	
 	uint32_t pt = *(uint32_t*)cur_process->pd;
 	cur_process->parent->child_pid = cur_process->pid;
 	cur_process->parent->simple_lock = 0;
@@ -221,6 +231,7 @@ void proc_free(void)
 
 	list_remove(&cur_process->elem_stat);
 	list_remove(&cur_process->elem_all);
+	
 }
 
 void proc_end(void)

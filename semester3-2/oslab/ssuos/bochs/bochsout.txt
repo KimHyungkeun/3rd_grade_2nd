@@ -32,7 +32,7 @@
 00000000000i[      ]   SB16 support: no
 00000000000i[      ]   USB support: no
 00000000000i[      ]   VGA extension support: vbe
-00000000000i[MEM0  ] allocated memory at 0xaf0ab008. after alignment, vector=0xaf0ac000
+00000000000i[MEM0  ] allocated memory at 0xaf0de008. after alignment, vector=0xaf0df000
 00000000000i[MEM0  ] 128.00MB
 00000000000i[MEM0  ] mem block size = 0x00100000, blocks=128
 00000000000i[MEM0  ] rom at 0xfffe0000/131072 ('/usr/local/share/bochs/BIOS-bochs-latest')
@@ -42,7 +42,7 @@
 00000000000i[DEV   ] PIIX3 PCI-to-ISA bridge present at device 1, function 0
 00000000000i[PLUGIN] init_dev of 'cmos' plugin device by virtual method
 00000000000i[CMOS  ] Using utc time for initial clock
-00000000000i[CMOS  ] Setting initial clock to: Mon Nov  4 15:27:26 2019 (time0=1572848846)
+00000000000i[CMOS  ] Setting initial clock to: Tue Nov  5 09:55:48 2019 (time0=1572915348)
 00000000000i[PLUGIN] init_dev of 'dma' plugin device by virtual method
 00000000000i[DMA   ] channel 4 used by cascade
 00000000000i[PLUGIN] init_dev of 'pic' plugin device by virtual method
@@ -172,29 +172,29 @@
 00001523025i[BXVGA ] VBE known Display Interface b0c5
 00001525950i[VBIOS ] VBE Bios $Id: vbe.c,v 1.65 2014/07/08 18:02:25 vruppert Exp $
 00001870275i[BIOS  ] ata0-0: PCHS=20/16/63 translation=none LCHS=20/16/63
-00003083606i[XGUI  ] charmap update. Font Height is 16
-00005747104i[BIOS  ] IDE time out
-12867793982i[BIOS  ] Booting from 0000:7c00
-13584660000p[XGUI  ] >>PANIC<< POWER button turned off.
-13584660000i[CPU0  ] CPU is in protected mode (active)
-13584660000i[CPU0  ] CS.mode = 32 bit
-13584660000i[CPU0  ] SS.mode = 32 bit
-13584660000i[CPU0  ] EFER   = 0x00000000
-13584660000i[CPU0  ] | EAX=00013ba5  EBX=00000002  ECX=00021980  EDX=c0009d40
-13584660000i[CPU0  ] | ESP=c0009c9c  EBP=c0009cc8  ESI=00000005  EDI=00000006
-13584660000i[CPU0  ] | IOPL=0 id vip vif ac vm rf nt of df if tf sf ZF af PF cf
-13584660000i[CPU0  ] | SEG sltr(index|ti|rpl)     base    limit G D
-13584660000i[CPU0  ] |  CS:0008( 0001| 0|  0) 00000000 ffffffff 1 1
-13584660000i[CPU0  ] |  DS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-13584660000i[CPU0  ] |  SS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-13584660000i[CPU0  ] |  ES:0020( 0004| 0|  0) 00020000 ffffffff 1 1
-13584660000i[CPU0  ] |  FS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-13584660000i[CPU0  ] |  GS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-13584660000i[CPU0  ] | EIP=00013ba5 (00013ba5)
-13584660000i[CPU0  ] | CR0=0xe0000011 CR2=0xc0012000
-13584660000i[CPU0  ] | CR3=0x0020c000 CR4=0x00000000
-13584660000i[CPU0  ] 0x00013ba5>> push ebp : 55
-13584660000i[CMOS  ] Last time is 1572849525 (Mon Nov  4 15:38:45 2019)
-13584660000i[XGUI  ] Exit
-13584660000i[      ] restoring default signal behavior
-13584660000i[SIM   ] quit_sim called with exit code 1
+00002936386i[XGUI  ] charmap update. Font Height is 16
+00005747127i[BIOS  ] IDE time out
+08868376115i[BIOS  ] Booting from 0000:7c00
+09434400000p[XGUI  ] >>PANIC<< POWER button turned off.
+09434400000i[CPU0  ] CPU is in protected mode (active)
+09434400000i[CPU0  ] CS.mode = 32 bit
+09434400000i[CPU0  ] SS.mode = 32 bit
+09434400000i[CPU0  ] EFER   = 0x00000000
+09434400000i[CPU0  ] | EAX=00000000  EBX=00000002  ECX=00021c00  EDX=c0009d40
+09434400000i[CPU0  ] | ESP=c0009ca0  EBP=c0009cc8  ESI=00000005  EDI=00000006
+09434400000i[CPU0  ] | IOPL=0 id vip vif ac vm rf nt of df if tf SF zf AF PF cf
+09434400000i[CPU0  ] | SEG sltr(index|ti|rpl)     base    limit G D
+09434400000i[CPU0  ] |  CS:0008( 0001| 0|  0) 00000000 ffffffff 1 1
+09434400000i[CPU0  ] |  DS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+09434400000i[CPU0  ] |  SS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+09434400000i[CPU0  ] |  ES:0020( 0004| 0|  0) 00020000 ffffffff 1 1
+09434400000i[CPU0  ] |  FS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+09434400000i[CPU0  ] |  GS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+09434400000i[CPU0  ] | EIP=000106dd (000106dd)
+09434400000i[CPU0  ] | CR0=0xe0000011 CR2=0xc0012000
+09434400000i[CPU0  ] | CR3=0x0020c000 CR4=0x00000000
+09434400000i[CPU0  ] 0x000106dd>> mov eax, dword ptr ss:[ebp-20] : 8B45EC
+09434400000i[CMOS  ] Last time is 1572915819 (Tue Nov  5 10:03:39 2019)
+09434400000i[XGUI  ] Exit
+09434400000i[      ] restoring default signal behavior
+09434400000i[SIM   ] quit_sim called with exit code 1

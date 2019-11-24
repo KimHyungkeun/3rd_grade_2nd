@@ -112,12 +112,13 @@ palloc_free_multiple (void *pages, size_t page_cnt)
 {
 	struct khpage *khpage = freelist.list;
 	size_t page_idx = (((uint32_t)pages - VKERNEL_HEAP_START) / PAGE_SIZE);
+	
 
 	if (pages == NULL || page_cnt == 0)
 		return;
 
 	delete_hash_table(pages, page_idx);	//해쉬 값 삭제기능
-
+	
 	if(khpage == NULL){
 		freelist.list = khpage_list + page_idx;
 		freelist.list->nalloc = page_cnt;
@@ -134,9 +135,9 @@ palloc_free_multiple (void *pages, size_t page_cnt)
 		khpage->next->next = NULL;
 	}
 
+	
 	freelist.nfree++;
-	
-	
+		
 }
 
 /* Frees the page at PAGE. */

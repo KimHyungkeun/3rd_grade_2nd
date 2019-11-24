@@ -8,6 +8,7 @@
 #include <ssulib.h>
 #include <mem/hashing.h>
 
+
 uint32_t F_IDX(uint32_t addr, uint32_t capacity) {
     return addr % ((capacity / 2) - 1);
 }
@@ -262,6 +263,7 @@ void delete_hash_table(void* pages, size_t page_idx) { //해쉬테이블로부�
    uint32_t hash1_idx, hash2_idx; 
    uint32_t idx, value, key;
    uint32_t *virtual_address = (uint32_t *)pages;
+   
 
     // idx : hash value (F_IDX or S_IDX)
     // value : Real_address(VH_TO_RH)
