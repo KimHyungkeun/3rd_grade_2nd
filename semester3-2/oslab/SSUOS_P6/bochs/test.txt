@@ -45,29 +45,28 @@ one_page2 = 3e2000
 three_page = 3e3000
 ========== initialization complete ==========
 id : ssuos
-password : p
-oslab
+password : oslab
 > ps
-pid 0 ppid non state 1 prio 0 using time 658205842 sched time 2052849760, pd = 101000
+pid 0 ppid non state 1 prio 0 using time 658205833 sched time 2052849760, pd = 101000
 pid 1 ppid 0 state 1 prio 200 using time 0 sched time 0, pd = 104000
 pid 2 ppid 0 state 1 prio 200 using time 0 sched time 0, pd = 107000
-pid 3 ppid 0 state 1 prio 100 using time 7490 sched time 0, pd = 10a000
-pid 4 ppid 3 state 1 prio 100 using time 20 sched time 0, pd = 10d000
+pid 3 ppid 0 state 1 prio 100 using time 4040 sched time 0, pd = 10a000
+pid 4 ppid 3 state 1 prio 100 using time 16 sched time 0, pd = 10d000
 > ps
-pid 0 ppid non state 1 prio 0 using time 658205842 sched time 2052849760, pd = 101000
+pid 0 ppid non state 1 prio 0 using time 658205833 sched time 2052849760, pd = 101000
 pid 1 ppid 0 state 1 prio 200 using time 0 sched time 0, pd = 104000
 pid 2 ppid 0 state 1 prio 200 using time 0 sched time 0, pd = 107000
-pid 3 ppid 0 state 1 prio 100 using time 8790 sched time 0, pd = 10a000
+pid 3 ppid 0 state 1 prio 100 using time 5030 sched time 0, pd = 10a000
 pid 5 ppid 3 state 1 prio 100 using time 19 sched time 0, pd = 110000
 > ps
-pid 0 ppid non state 1 prio 0 using time 658205842 sched time 2052849760, pd = 101000
+pid 0 ppid non state 1 prio 0 using time 658205833 sched time 2052849760, pd = 101000
 pid 1 ppid 0 state 1 prio 200 using time 0 sched time 0, pd = 104000
 pid 2 ppid 0 state 1 prio 200 using time 0 sched time 0, pd = 107000
-pid 3 ppid 0 state 1 prio 100 using time 10270 sched time 0, pd = 10a000
-pid 6 ppid 3 state 1 prio 100 using time 18 sched time 0, pd = 113000
+pid 3 ppid 0 state 1 prio 100 using time 5920 sched time 0, pd = 10a000
+pid 6 ppid 3 state 1 prio 100 using time 15 sched time 0, pd = 113000
 > ps
-pid 0 ppid non state 1 prio 0 using time 658205842 sched time 2052849760, pd = 101000
+pid 0 ppid non state 1 prio 0 using time 658205833 sched time 2052849760, pd = 101000
 pid 1 ppid 0 state 1 prio 200 using time 0 sched time 0, pd = 104000
 pid 2 ppid 0 state 1 prio 200 using time 0 sched time 0, pd = 107000
-pid 3 ppid 0 state 1 prio 100 using time 11410 sched time 0, pd = 10a000
-pid 7 ppid 3 state 1 prio 100 using time 19 sched time 0, pd = 116000
+pid 3 ppid 0 state 1 prio 100 using time 6680 sched time 0, pd = 10a000
+pid 7 ppid 3 state 1 prio 100 using time 15 sched time 0, pd = 116000
